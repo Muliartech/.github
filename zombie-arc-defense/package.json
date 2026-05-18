@@ -1,0 +1,23 @@
+{
+  "name": "zombie-arc-defense",
+  "version": "1.0.0",
+  "description": "Zombie tower-defense game running on Circle's Arc testnet (USDC as gas).",
+  "private": true,
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:arc": "hardhat run scripts/deploy.js --network arcTestnet",
+    "verify:arc": "hardhat run scripts/verify.js --network arcTestnet",
+    "node": "hardhat node",
+    "serve": "npx http-server frontend -p 8080 -c-1"
+  },
+  "keywords": ["arc", "circle", "usdc", "blockchain", "game", "tower-defense"],
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.10",
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}

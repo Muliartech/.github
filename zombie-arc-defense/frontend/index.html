@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zombie Arc Defense</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">ZAD</span>
+      <span class="title">Zombie Arc Defense</span>
+      <span class="badge">Arc Testnet</span>
+    </div>
+    <div class="wallet">
+      <div id="netInfo" class="net-pill">Not connected</div>
+      <div id="balances" class="balances">
+        <span title="Gas token (USDC) on Arc">USDC: <b id="balUSDC">-</b></span>
+        <span title="Reward token">ZMB: <b id="balZMB">-</b></span>
+        <span title="Hero NFTs you own">Heroes: <b id="balHero">-</b></span>
+      </div>
+      <button id="btnConnect" class="primary">Connect Wallet</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel left">
+      <h3>1. Get a Hero</h3>
+      <p class="hint">You need at least one Hero NFT to start a run. New players can claim a free starter.</p>
+      <button id="btnStarter">Claim Free Starter (Tier 1)</button>
+      <div class="shop">
+        <button class="buy" data-tier="1">Buy Tier 1 (1 USDC)</button>
+        <button class="buy" data-tier="2">Buy Tier 2 (5 USDC)</button>
+        <button class="buy" data-tier="3">Buy Tier 3 (20 USDC)</button>
+      </div>
+
+      <h3>2. Play a Run</h3>
+      <p class="hint">Click Start. Survive waves. Heroes shoot automatically.</p>
+      <button id="btnStart" class="primary">Start Run</button>
+
+      <h3>3. Claim Rewards</h3>
+      <p class="hint">When the run ends, your score is signed and you mint ZMB.</p>
+      <button id="btnClaim" disabled>Claim ZMB</button>
+
+      <div id="log" class="log"></div>
+    </section>
+
+    <section class="panel center">
+      <div class="hud">
+        <div>Wave: <b id="hudWave">0</b></div>
+        <div>Score: <b id="hudScore">0</b></div>
+        <div>Base HP: <b id="hudHp">100</b></div>
+        <div>Heroes: <b id="hudHeroes">0</b></div>
+      </div>
+      <canvas id="game" width="900" height="500"></canvas>
+      <div id="overlay" class="overlay">
+        <div class="overlay-card">
+          <h2 id="overlayTitle">Ready?</h2>
+          <p id="overlayMsg">Connect your wallet, claim a hero, then press Start Run.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>Built on <a href="https://docs.arc.network" target="_blank" rel="noopener">Circle Arc</a> &middot; gas paid in USDC</span>
+  </footer>
+
+  <!-- Order matters: ethers, then addresses (auto-generated), then app -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+  <script src="js/addresses.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
