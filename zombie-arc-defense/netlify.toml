@@ -1,0 +1,24 @@
+# Netlify configuration for Zombie Arc Defense.
+# When connecting via Git: set the Base directory to `zombie-arc-defense`
+# in the Netlify UI. The values below configure publishing.
+
+[build]
+  publish   = "frontend"
+  command   = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+    Permissions-Policy     = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/abi/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+[[headers]]
+  for = "/js/addresses.js"
+  [headers.values]
+    Cache-Control = "public, max-age=60, must-revalidate"

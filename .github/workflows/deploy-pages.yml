@@ -1,0 +1,52 @@
+name: Deploy game to GitHub Pages
+
+# Runs when you push changes to the front-end on master.
+# Publishes only the `zombie-arc-defense/frontend` folder so the URL points
+# straight at the playable site.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "zombie-arc-defense/frontend/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sanity check the front-end
+        run: |
+          test -f zombie-arc-defense/frontend/index.html
+          test -f zombie-arc-defense/frontend/js/addresses.js
+          echo "Front-end looks publishable."
+
+      - name: Disable Jekyll
+        run: touch zombie-arc-defense/frontend/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: zombie-arc-defense/frontend
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

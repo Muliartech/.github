@@ -260,16 +260,19 @@ The contract checks the signature against `scoreSigner` and refuses if it doesn'
 
 ---
 
-## Step 12 — Putting the website online (optional)
+## Step 12 — Putting the website online (a custom domain!)
 
-Once you're happy locally, host the `frontend/` folder anywhere static:
+Once you're happy locally, host the `frontend/` folder anywhere static. Quick options:
 
 | Host | How |
 |---|---|
-| **Vercel** | Drag-drop the `frontend` folder at <https://vercel.com/new>. Free. |
-| **Netlify** | Drag-drop at <https://app.netlify.com/drop>. Free. |
-| **GitHub Pages** | Push the repo, enable Pages, point at `/frontend`. Free. |
-| **Cloudflare Pages** | Connect the repo at <https://pages.cloudflare.com>. Free. |
+| **Vercel** | Connect repo, set Root Directory to `zombie-arc-defense`. Free SSL. |
+| **Netlify** | Drag-drop the `frontend/` folder at <https://app.netlify.com/drop>. Free SSL. |
+| **GitHub Pages** | Enable in Settings → Pages → Source: GitHub Actions. The included workflow auto-publishes. |
+| **Cloudflare Pages** | Connect repo, output dir = `zombie-arc-defense/frontend`. Free SSL. |
+| **Your own host** (cPanel, S3, etc.) | Upload the contents of `frontend/` to your `public_html`. |
+
+➡ **Full step-by-step deployment guide with custom domains, DNS, troubleshooting:** [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 The `addresses.js` and `abi/` files are baked into the deploy, so any visitor with MetaMask can play immediately.
 
