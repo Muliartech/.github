@@ -1,0 +1,18 @@
+{
+  "name": "arc-loot-game",
+  "version": "1.0.0",
+  "description": "Tap-to-Earn Web3 Game on Arc Testnet (Circle) - Alternative to LootCoin",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network arcTestnet",
+    "verify": "hardhat verify --network arcTestnet",
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.22.0",
+    "dotenv": "^16.4.0"
+  },
+  "keywords": ["arc", "circle", "usdc", "tap-to-earn", "web3", "game"],
+  "license": "MIT"
+}

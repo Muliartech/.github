@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArcLoot - Tap to Earn on Arc Testnet | USDC Gas</title>
+  <meta name="description" content="Earn ARCLOOT tokens by tapping! Built on Arc Testnet by Circle with USDC native gas. Free to play, no volatile gas fees." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F3AE;</text></svg>" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">&#x1F3AE;</div>
+      <div>
+        <h1>ArcLoot</h1>
+        <span class="network-badge">Arc Testnet &bull; USDC Gas</span>
+      </div>
+    </div>
+    <div class="wallet-section">
+      <div id="wallet-info" class="wallet-info hidden">
+        <span id="wallet-address" class="address"></span>
+        <span id="usdc-balance" class="balance"></span>
+      </div>
+      <button id="connect-btn" class="connect-btn">Connect Wallet</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Pre-connect landing -->
+    <section id="pre-connect" class="pre-connect">
+      <h2>Tap. Earn. Loot.</h2>
+      <p>
+        The simplest way to earn on-chain rewards. Tap to earn <strong>$ARCLOOT</strong> tokens
+        on <strong>Arc Testnet</strong> by Circle. Zero volatile gas fees &mdash; pay only in USDC.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">&#x1F4B0;</div>
+          <h3>USDC Native Gas</h3>
+          <p>No ETH needed. Gas fees paid in stable USDC on Arc Testnet.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1F3AF;</div>
+          <h3>Tap to Earn</h3>
+          <p>Earn 10 ARCLOOT per tap. Up to 500 taps per day.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1F91D;</div>
+          <h3>Referral Bonus</h3>
+          <p>Get 5% bonus on all earnings from your referrals.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1F3C6;</div>
+          <h3>Leaderboard</h3>
+          <p>Compete with other players. Top earners get recognition.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Section (shown after wallet connect) -->
+    <section id="game-section" class="game-section hidden">
+      <!-- Tap Area -->
+      <div class="tap-area">
+        <div class="card" style="width:100%; text-align:center;">
+          <h3>Tap to Earn ARCLOOT</h3>
+          <div style="position:relative; display:inline-block; margin: 1.5rem 0;">
+            <button id="tap-btn" class="tap-btn">
+              <span class="tap-icon">&#x1F4A5;</span>
+              <span>TAP!</span>
+            </button>
+            <div id="tap-reward" class="tap-reward">+10 ARCLOOT</div>
+          </div>
+          <div class="cooldown-container">
+            <div class="cooldown-bar-track">
+              <div id="cooldown-bar" class="cooldown-bar"></div>
+            </div>
+            <span id="cooldown-text" class="cooldown-text">Ready!</span>
+          </div>
+          <div id="tx-status" class="tx-status hidden"></div>
+        </div>
+      </div>
+
+      <!-- Stats Panel -->
+      <div class="stats-panel">
+        <div class="card">
+          <h3>Your Stats</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div id="token-balance" class="value">0</div>
+              <div class="label">ARCLOOT Balance</div>
+            </div>
+            <div class="stat-item">
+              <div id="total-taps" class="value">0</div>
+              <div class="label">Total Taps</div>
+            </div>
+            <div class="stat-item">
+              <div id="total-earned" class="value">0</div>
+              <div class="label">Total Earned</div>
+            </div>
+            <div class="stat-item">
+              <div><span id="daily-taps">0</span> / <span id="daily-limit">500</span></div>
+              <div class="label">Daily Taps</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Referral Earnings</h3>
+          <div class="stat-item" style="margin-bottom:1rem;">
+            <div id="referral-earnings" class="value">0</div>
+            <div class="label">ARCLOOT from Referrals (5% bonus)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global Stats -->
+      <div class="global-stats">
+        <div class="global-stat-card">
+          <div id="total-players" class="value">0</div>
+          <div class="label">Total Players</div>
+        </div>
+        <div class="global-stat-card">
+          <div id="total-supply" class="value">0</div>
+          <div class="label">Total ARCLOOT Minted</div>
+        </div>
+        <div class="global-stat-card">
+          <div id="reward-rate" class="value">10</div>
+          <div class="label">ARCLOOT per Tap</div>
+        </div>
+      </div>
+
+      <!-- Referral Section -->
+      <div class="card referral-section">
+        <h3>Invite Friends</h3>
+        <p class="referral-bonus-info">
+          Share your referral link and earn <span>5% bonus</span> on all ARCLOOT your referrals earn!
+        </p>
+        <div class="referral-input-group">
+          <input id="referral-link" type="text" readonly placeholder="Connect wallet to generate link" />
+          <button id="copy-ref-btn">Copy</button>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="card leaderboard-section">
+        <h3>Leaderboard - Top Earners</h3>
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Earnings</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <tr>
+              <td colspan="3" style="text-align:center; opacity:0.6;">Connect wallet to view</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      <strong>ArcLoot</strong> &mdash; Tap-to-Earn Game on
+      <a href="https://arc.network" target="_blank">Arc Testnet</a> by Circle
+      &bull; Gas paid in USDC &bull;
+      <a href="https://faucets.chain.link/arc-testnet" target="_blank">Get Testnet USDC</a>
+      &bull;
+      <a href="https://testnet.arcscan.app" target="_blank">Block Explorer</a>
+    </p>
+    <p style="margin-top:0.5rem;">
+      Built for the Arc ecosystem &bull; Open Source &bull;
+      <a href="https://github.com/Muliartech/.github" target="_blank">GitHub</a>
+    </p>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="notification" class="notification"></div>
+
+  <!-- ethers.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
+  <!-- App modules -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
